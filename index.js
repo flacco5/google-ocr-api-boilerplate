@@ -1,9 +1,9 @@
 //packages
-const express = require('express');
+const express    = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose'); 
-var winston = require('winston'), expressWinston = require('express-winston');
-
+const mongoose   = require('mongoose'); 
+const morgan     = require('morgan');
+const fs         = require('fs'); 
 //set up express app
 const app = express(); 
 
@@ -15,29 +15,15 @@ mongoose.Promise = global.Promise;
 //parse incoming json, needs to be before routes so it can parse message
 app.use(bodyParser.json());
 
-//winston logs incoming request
-app.use(expressWinston.logger({
-    transports: [
-      new winston.transports.Console({
-        json: true,
-        colorize: true,
-        level: 'silly'
-      })
-    ]
-}));
+//create directory for log files
+var accessLogStream = fs.createWriteStream(__dirname + '/logs/general.log',{flags: 'a'});
+
+//write requests to log files & log to console
+app.use(morgan('combined', {stream: accessLogStream}))
+app.use(morgan('dev'))
 
 //import router, initialize routes, add api to router
 app.use('/api', require('./routes/api.js')); 
-
-//winston logging errors 
-app.use(expressWinston.errorLogger({
-    transports: [
-        new winston.transports.Console({
-          json: true,
-          colorize: true
-        })
-    ]
-}));
 
 //error handling middleware put after routes TO process bad requests 
 app.use(function(err, req, res, next) {
