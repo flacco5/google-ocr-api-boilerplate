@@ -15,7 +15,7 @@ router.post('/goo', (req,res,next) => {
 
 	request(options, function (error, response, body) {
 		let json = JSON.parse(body);
-		res.send(json.responses.text);
+		res.send(json.responses[0].textAnnotations[0].description);
     });
 
 });
