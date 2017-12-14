@@ -1,6 +1,6 @@
 //packages
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema; //create schema object from mongoose
+const Schema   = mongoose.Schema; //create schema object from mongoose
 
 //geolocation schema
 const GeoSchema = new Schema({

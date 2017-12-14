@@ -24,7 +24,7 @@ app.use(morgan('dev'))
 
 //import router, initialize routes, add api to router
 app.use('/api', require('./routes/api.js')); 
-app.use('/', require('./routes/external.js')); 
+app.use('/google', require('./routes/ocr.js')); 
 
 //error handling middleware put after routes TO process bad requests 
 app.use(function(err, req, res, next) {

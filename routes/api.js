@@ -1,7 +1,7 @@
 //packages
 const express = require('express');
-const router = express.Router(); //router handler 
-const Ninja = require('../models/ninjas.js')
+const router  = express.Router(); //router handler 
+const Ninja   = require('../models/ninjas.js')
 
 //get list of ninjas
 router.get('/ninjas', (req,res,next) => {
