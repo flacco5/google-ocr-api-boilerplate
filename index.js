@@ -4,11 +4,16 @@ const bodyParser = require('body-parser');
 const mongoose   = require('mongoose'); 
 const morgan     = require('morgan');
 const fs         = require('fs'); 
+
+//connection information 
+const mongourl   = '192.168.1.26'
+const collection = 'ninjago' 
+
 //set up express app
 const app = express(); 
 
 //connect to mongo
-mongoose.connect('mongodb://192.168.1.26/ninjago', { useMongoClient: true});
+mongoose.connect(`mongodb://${mongourl}/${collection}`, { useMongoClient: true});
 mongoose.Promise = global.Promise; 
 
 
@@ -23,7 +28,6 @@ app.use(morgan('combined', {stream: accessLogStream}))
 app.use(morgan('dev'))
 
 //import router, initialize routes, add api to router
-app.use('/api', require('./routes/api.js')); 
 app.use('/google', require('./routes/ocr.js')); 
 
 //error handling middleware put after routes TO process bad requests 

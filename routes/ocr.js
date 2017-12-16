@@ -46,7 +46,6 @@ router.get('/ocr', (req,res,next) => {
 })
 
 //retrieve all records 
-
 router.get('/ocr/all', (req,res,next) => {
     Google.find({}, (err) =>{
         if (err){
